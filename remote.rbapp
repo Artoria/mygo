@@ -1,0 +1,11 @@
+require 'drb/drb'
+require 'timeout'
+URI="druby://192.168.0.18:4567"
+
+DRb.start_service
+
+service = DRbObject.new_with_uri(URI)
+case ARGV[0]
+  when "exec"
+    puts service.run("`" + ARGV[1..-1].join(" ") + "`" )
+end
